@@ -1,0 +1,57 @@
+h1{
+    justify-self: center;
+}
+
+body{
+    background-color: rgb(67, 67, 67);
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+}
+
+#game {
+    display: flex;
+    flex-direction: column; /* Empile les lignes (.row) verticalement */
+    gap: 5px; 
+    align-items: center; /* Centre les lignes au milieu */    
+    margin-top: 50px; 
+    border: solid;
+    border: 5px solid rgb(92, 92, 92);
+    padding: 10px;
+    border-radius: 12px;
+    width: fit-content;
+    justify-self: center;
+}
+
+/* Chaque ligne (qui contient 5 tuiles) */
+.row {
+    display: flex; /* Aligne les tuiles (.tile) horizontalement */
+    gap: 5px; 
+}
+
+
+.tile {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    background-color: grey; 
+}
+#message{
+    justify-self: center;
+}
+
+.orange{
+    background-color: orange;
+}
+.vert{
+    background-color: green;
+}
+.grey{
+    background-color: grey; 
+}

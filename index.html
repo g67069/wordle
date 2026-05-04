@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle</title>
+    <script src="js/wordle.js"defer></script>
+    <script src="js/lexicon.js"></script>
+    <link rel="stylesheet" href="style/wordle.css">
+</head>
+<body>
+    <header>
+        <h1>Wordle</h1>
+        <h2>But du jeu</h2>
+        <div id="explication">
+            Déterminer un mot de cinq lettres.
+            Le joueur donne une mot et confirme avec ENTER. Si le mot se trouve dans le dictionnaire, le mot est accepté et indique quelles lettres sont corrects:
+            <ul>
+                <li>celles correctement placées sont en vert;</li>
+                <li>celles présentes mais mal placées sont en orange;</li>
+                <li>les autres ne sont pas modifiées.</li>
+            </ul>
+        </div>
+
+    </header>
+    <main>
+        <section id="game">
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            
+        </section>
+        <p id="message"></p>
+        <button id="test">ok</button>
+    </main>
+</body>
+</html>
