@@ -1,129 +1,77 @@
-"use strict"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: wordle.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: wordle.js</h1>
+
+    
 
 
-/**
- * Description placeholder
- *
- * @type {HTMLElement}
- */
-const GO = document.getElementById("GO")
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
 /**
  * recupere la div du jeu 
  *
- * @type {HTMLElement}
+ * @type {Document}
  */
 const gameEl = document.getElementById("game");
 /**
- * la taille du mot
+ * recupere le nombre de ligne de la grille
  *
  * @type {Number}
  */
-let WSize ;
-let tries;
+const ROW_Lenght = gameEl.querySelectorAll(".row").length
+/**
+ * recupere toute les lignes de la grille
+ *
+ * @type {Document}
+ */
+const ROW = gameEl.querySelectorAll(".row")
 /**
  * recupere le paragraphe message qui permet d'afficher des message
  *
  * @type {Document}
  */
 const message = document.getElementById("message")
-
 /**
- * Description placeholder
- *
- * @type {HTMLElement}
- */
-const popup = document.getElementById("setup-popup");
-/**
- * Description placeholder
- *
- * @type {HTMLElement}
- */
-const form = document.getElementById("setup-form");
-
-
-/**
- * recupere le nombre de ligne de la grille
+ * la taille du mot
  *
  * @type {Number}
  */
-let ROW_Lenght ;
-/**
- * recupere toute les lignes de la grille
- *
- * @type {Document}
- */
-let ROW ;
-
+const WSize = 5;
 /**
  * va chercher un mot aleatoire a touver dans le lexicon
  *
  * @type {string}
  */
-let targetWord ;
+let targetWord = lexicon[WSize][Math.floor(Math.random() * lexicon[5].length)];
+// console.log(Math.floor(Math.random()* lexicon[5].length))
+console.log(targetWord)
+// console.log(lexicon[5].length)
 /**
- * cree la grille pour le jeu
+ * taille de la grille
  *
- * @param {Number} tries 
- * @param {Number} wordSize 
+ * @type {Number}
  */
-function creatGrid(tries,wordSize){
-    for (let index = 0; index < tries; index++) {
-        
-        let row = document.createElement("div")
-        console.log(row)
-        row.classList.add("row")
-        gameEl.appendChild(row)
-
-        
-        for (let jndex = 0; jndex < wordSize; jndex++) {
-
-            let col = document.createElement("div")
-            col.classList.add("tile")
-            row.appendChild(col)
-        }
-    }
-    // gameEl.classList.add("hidden")
-}
-
-
-
-// On affiche le pop-up dès le chargement de la page
-popup.showModal();
-
-function FORform(event) {
-    // Empêche la page de se recharger (comportement par défaut des formulaires)
-    event.preventDefault(); 
-
-    // On récupère les valeurs des inputs (en les convertissant en nombres)
-    const wordSizeInput = parseInt(document.getElementById("selector_length").value);
-    const triesInput = parseInt(document.getElementById("selector_tries").value);
-
-    // On ferme le pop-up
-    popup.close();
-
-    WSize = wordSizeInput
-    tries = triesInput
-    targetWord = lexicon[WSize][Math.floor(Math.random()* lexicon[WSize].length)]
-
-    console.log("On lance une partie avec :", wordSizeInput, "lettres et", triesInput, "essais.");
-    console.log("Nouveau mot à trouver :", targetWord)
-    creatGrid(triesInput,WSize)
-    ROW = gameEl.querySelectorAll(".row")
-    ROW_Lenght = gameEl.querySelectorAll(".row").length
-
-}
-// On écoute quand l'utilisateur valide le formulaire
-form.addEventListener("submit", FORform);
-
-
-
-// function hidden(){
-//     gameEl.classList.toggle("hidden")
-// }
-
-// GO.addEventListener("click",hidden)
-
-
+const BoardSize = 5;
 
 /**
  * la ligne actuel
@@ -138,6 +86,7 @@ let curRowI = 0;
  */
 let curColI = 0;
 
+
 /**
  * permet de placer les lettres dans la grille du wordle
  * @param {int} row -ligne
@@ -145,7 +94,7 @@ let curColI = 0;
  * @param {string} letter -lettre à placer
  */
 function setLetter(row, col, letter) {
-    for (let i = 0; i < ROW_Lenght; i++) {
+    for (let i = 0; i &lt; ROW_Lenght; i++) {
         if (i == row) {
             const tile = ROW.item(i).querySelectorAll(".tile").item(col)
             tile.innerHTML = letter
@@ -158,7 +107,7 @@ function setLetter(row, col, letter) {
  * permet de compter l'occurence des lettres dans un mot
  *
  * @param {string} mot -le mot ou il faut compter l'occurence
- * @returns {Object<string, number>} compteur - dictionnaire contenant l'occurence des lettres -key la lettre value l'occurence
+ * @returns {Object&lt;string, number>} compteur - dictionnaire contenant l'occurence des lettres -key la lettre value l'occurence
  */
 function compterLettres(mot) {
     const compteur = {};
@@ -203,27 +152,27 @@ function endGameLoose(targetWord) {
  * @param {*} event - interactions utilisateur
  */
 function keyUpHandler(event) {
-
-    if (gameEl.classList.contains("hidden")) return;
-        const regex = /^[a-z]$/
+    const regex = /^[a-z]$/
+    // console.log(event.key)
 
     let curWord = ""
     if (event.key == "Backspace") {
 
-        if (0 < curColI) {
+        if (0 &lt; curColI) {
             if (curColI == 0) {
                 curColI = 0;
             }
             curColI--;
             ROW.item(curRowI).querySelectorAll(".tile").item(curColI).innerHTML = "";
         }
+        // console.log(curColI)
     } else if (event.key == "Enter") {
 
         for (const letter of ROW.item(curRowI).querySelectorAll(".tile")) {
             curWord = curWord + letter.textContent.toUpperCase()
         }
         // console.log(curWord)        
-        if (curWord.length == WSize && lexicon[WSize].includes(curWord)) {
+        if (curWord.length == WSize &amp;&amp; lexicon[WSize].includes(curWord)) {
 
             let existance = compterLettres(targetWord)
             existance.cptVert = 0;
@@ -241,10 +190,9 @@ function keyUpHandler(event) {
             }
             curRowI++;
             curColI = 0;
-            console.log(curRowI)
             if (existance.cptVert == WSize) {
                 endGameWin()
-            } else if (curRowI == tries) {
+            } else if (curRowI == 5) {
                 endGameLoose(targetWord)
             }
         }
@@ -263,7 +211,7 @@ function keyUpHandler(event) {
             //     curColI = 0;
             //     curRowI ++;
             // }
-            if (ROW.item(curRowI).querySelectorAll(".tile").item(WSize-1).innerHTML != "") {
+            if (ROW.item(curRowI).querySelectorAll(".tile").item(4).innerHTML != "") {
                 message.style.color = "red"
                 message.innerHTML = "Vous avez entrez le nombre max de lettres"
                 setTimeout(rstMess, 1500)
@@ -278,7 +226,7 @@ function keyUpHandler(event) {
 
 }
 /**
- * @typedef {Object<string, number>} existance
+ * @typedef {Object&lt;string, number>} existance
  */
 /**
  * verification de la lettre pour savoir qu'elle couleur lui attribué
@@ -304,7 +252,7 @@ function checkLetter(curWordsLetter, targetWord, queryLetter, index, existance) 
 
     }
     //test pour le Vert
-    if (targetWord[index] == curWordsLetter && existance[curWordsLetter] > 0) { // ici on utilise une index externe pour recup lavancement de la boucle externe pour pas "surboucler" et dcp faire des "colision" vu que checkLetter est deja ds une boucle
+    if (targetWord[index] == curWordsLetter &amp;&amp; existance[curWordsLetter] > 0) { // ici on utilise une index externe pour recup lavancement de la boucle externe pour pas "surboucler" et dcp faire des "colision" vu que checkLetter est deja ds une boucle
         existance[curWordsLetter] -= 1
         queryLetter.classList.remove("grey")
         queryLetter.classList.remove("orange")
@@ -315,7 +263,7 @@ function checkLetter(curWordsLetter, targetWord, queryLetter, index, existance) 
 
     }
     // Test pour le Orange
-    if (targetWord.includes(curWordsLetter) && existance[curWordsLetter] > 0) {
+    if (targetWord.includes(curWordsLetter) &amp;&amp; existance[curWordsLetter] > 0) {
         existance[curWordsLetter] -= 1
         queryLetter.classList.remove("grey")
         queryLetter.classList.remove("vert")
@@ -327,26 +275,27 @@ function checkLetter(curWordsLetter, targetWord, queryLetter, index, existance) 
     return existance
 }
 
-
-/**
- * Description placeholder
- *
- * @param {*} event 
- */
-function handlehelp(event){
-    let elem = event.target
-    let txt  = document.getElementById("explication")
-    txt.classList.toggle("hidden");
-    if(elem.textContent == "Cacher"){
-        elem.textContent = "Aide"
-    }
-    else{
-        elem.textContent = "Cacher"
-    }
-    
-}
-
-document.getElementById("show").addEventListener("click",handlehelp)
-
-
 document.addEventListener("keyup", keyUpHandler)
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#BoardSize">BoardSize</a></li><li><a href="global.html#ROW">ROW</a></li><li><a href="global.html#ROW_Lenght">ROW_Lenght</a></li><li><a href="global.html#WSize">WSize</a></li><li><a href="global.html#checkLetter">checkLetter</a></li><li><a href="global.html#compterLettres">compterLettres</a></li><li><a href="global.html#curColI">curColI</a></li><li><a href="global.html#curRowI">curRowI</a></li><li><a href="global.html#endGameLoose">endGameLoose</a></li><li><a href="global.html#endGameWin">endGameWin</a></li><li><a href="global.html#gameEl">gameEl</a></li><li><a href="global.html#keyUpHandler">keyUpHandler</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#rstMess">rstMess</a></li><li><a href="global.html#setLetter">setLetter</a></li><li><a href="global.html#targetWord">targetWord</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu May 07 2026 19:13:29 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

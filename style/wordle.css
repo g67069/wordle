@@ -55,3 +55,42 @@ body{
 .grey{
     background-color: grey; 
 }
+
+button{
+    display: flex;
+    justify-self: center;
+    margin-top: 50px;
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(67, 67, 67);
+    
+}
+#show{
+    justify-self: left;
+}
+#GO:hover{
+    border: rgb(92, 92, 92) 2px solid;
+    background-color: darkgrey;
+}
+.hidden{
+    display: none !important;
+}
+
+/* ou 
+#game.hidden{
+    display: none;
+} */
+
+
+dialog {
+    background-color: rgb(67, 67, 67);
+    color: white;
+    border: 5px solid rgb(92, 92, 92);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+/* Grise le reste de la page derrière le pop-up */
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.7); 
+}
