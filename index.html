@@ -1,69 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wordle</title>
-    <script src="js/wordle.js"defer></script>
+    <script src="js/wordle.js" defer></script>
     <script src="js/lexicon.js"></script>
     <link rel="stylesheet" href="style/wordle.css">
 </head>
+
 <body>
     <header>
         <h1>Wordle</h1>
         <h2>But du jeu</h2>
-        <div id="explication">
+        <div id="explication" class="hidden">
             Déterminer un mot de cinq lettres.
-            Le joueur donne une mot et confirme avec ENTER. Si le mot se trouve dans le dictionnaire, le mot est accepté et indique quelles lettres sont corrects:
+            Le joueur donne une mot et confirme avec ENTER. Si le mot se trouve dans le dictionnaire, le mot est accepté
+            et indique quelles lettres sont corrects:
             <ul>
                 <li>celles correctement placées sont en vert;</li>
                 <li>celles présentes mais mal placées sont en orange;</li>
                 <li>les autres ne sont pas modifiées.</li>
             </ul>
         </div>
+        <button id="show">Aide</button>
 
     </header>
     <main>
+
+        <dialog id="setup-popup">
+            <form id="setup-form">
+                <h2>Paramètres de la partie</h2>
+
+                <div>
+                    Longueur des mots:
+                    <select name="lignes" id="selector_length">
+                        <option value="5" selected>5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                </div>
+
+                <div>
+                    Nombre de tentatives:
+                    <select name="lignes" id="selector_tries">
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5" selected>5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="GO">Commencer à jouer !</button>
+            </form>
+        </dialog>
+        <div>
+
+
+
+
+            <!-- <button id="GO">GO</button> -->
+        </div>
+
         <section id="game">
-            <div class="row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
-            
+
         </section>
         <p id="message"></p>
-        <button id="test">ok</button>
     </main>
 </body>
+
 </html>
