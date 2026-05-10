@@ -1,6 +1,7 @@
 "use strict"
 
-
+const CV = document.getElementById("clavier")
+const btn_restart = document.getElementById("restart")
 /**
  * Description placeholder
  *
@@ -19,6 +20,11 @@ const gameEl = document.getElementById("game");
  * @type {Number}
  */
 let WSize ;
+/**
+ * essaie
+ *
+ * @type {number}
+ */
 let tries;
 /**
  * recupere le paragraphe message qui permet d'afficher des message
@@ -39,7 +45,12 @@ const popup = document.getElementById("setup-popup");
  * @type {HTMLElement}
  */
 const form = document.getElementById("setup-form");
-
+const keyboard = [
+"AZERTYUIOP".split(''),
+"QSDFGHJKLM".split(''),
+["↲", ..."WXCVBN".split(''), "←"]
+]
+console.log(keyboard)
 
 /**
  * recupere le nombre de ligne de la grille
@@ -67,6 +78,7 @@ let targetWord ;
  * @param {Number} wordSize 
  */
 function creatGrid(tries,wordSize){
+    gameEl.textContent = ""
     for (let index = 0; index < tries; index++) {
         
         let row = document.createElement("div")
@@ -82,14 +94,53 @@ function creatGrid(tries,wordSize){
             row.appendChild(col)
         }
     }
+
+    
+
     // gameEl.classList.add("hidden")
 }
 
+function creatKeyboard(){
+    for (const line of keyboard) {
+        let ligne = document.createElement("div")
+        CV.appendChild(ligne)
+        for (const key of line) {
+            let oneKey = document.createElement("button")
+            oneKey.textContent = key
+            oneKey.classList.add("keys")
+            if (key !== "↲" && key !== "←") {
+                oneKey.id = "kb-" + key; 
+}
+            oneKey.addEventListener("click", () => {
+                let virtualKey = key; 
 
+                if (key === "↲") {
+                    virtualKey = "Enter";
+                } else if (key === "←") {
+                    virtualKey = "Backspace";
+                } 
+                else {
+    
+                    virtualKey = key.toLowerCase(); 
+                }
+                keyUpHandler({ key: virtualKey });
+                
+                oneKey.blur()
+            });
+
+            ligne.append(oneKey)
+        }
+    }
+}
 
 // On affiche le pop-up dès le chargement de la page
 popup.showModal();
 
+/**
+ * genere le formulaire
+ *
+ * @param {Event} event 
+ */
 function FORform(event) {
     // Empêche la page de se recharger (comportement par défaut des formulaires)
     event.preventDefault(); 
@@ -110,12 +161,13 @@ function FORform(event) {
     creatGrid(triesInput,WSize)
     ROW = gameEl.querySelectorAll(".row")
     ROW_Lenght = gameEl.querySelectorAll(".row").length
+    creatKeyboard()
 
 }
 // On écoute quand l'utilisateur valide le formulaire
 form.addEventListener("submit", FORform);
 
-
+// creatKeyboard()
 
 // function hidden(){
 //     gameEl.classList.toggle("hidden")
@@ -185,6 +237,9 @@ function endGameWin() {
     message.style.color = "green"
     message.innerHTML = "BRAVO ! Vous avez gagné."
     document.removeEventListener("keyup", keyUpHandler);
+    btn_restart.classList.toggle("hidden")
+    btn_restart.addEventListener("click",restart)
+    
 }
 /**
  * fini le jeu par une defaite et montre le mot qu'il fallait trouver
@@ -196,6 +251,8 @@ function endGameLoose(targetWord) {
     message.style.color = "red"
     message.innerHTML = "PERDU ! Le mot était " + targetWord + "."
     document.removeEventListener("keyup", keyUpHandler);
+    btn_restart.classList.toggle("hidden")
+    btn_restart.addEventListener("click",restart)
 }
 /**
  * gere les interactions utilisateur /fonction princaple
@@ -292,15 +349,15 @@ function keyUpHandler(event) {
  */
 function checkLetter(curWordsLetter, targetWord, queryLetter, index, existance) {
 
-    // console.log(existance)
-
-    // console.log(existance[curWordsLetter] > 0)
-
+    let toucheClavier = document.getElementById("kb-" + curWordsLetter);
     // teste pour le gris
     if (!targetWord.includes(curWordsLetter)) {
         queryLetter.classList.remove("vert")
         queryLetter.classList.remove("orange")
         queryLetter.classList.add("grey")
+        if (toucheClavier && !toucheClavier.classList.contains("vert") && !toucheClavier.classList.contains("orange")) {
+            toucheClavier.classList.add("grey");
+        }
 
     }
     //test pour le Vert
@@ -311,6 +368,10 @@ function checkLetter(curWordsLetter, targetWord, queryLetter, index, existance) 
         queryLetter.classList.add("vert")
         existance.cptVert++
         console.log(existance.cptVert)
+        if (toucheClavier) {
+            toucheClavier.classList.remove("grey", "orange");
+            toucheClavier.classList.add("vert");
+        }
         return existance
 
     }
@@ -320,6 +381,10 @@ function checkLetter(curWordsLetter, targetWord, queryLetter, index, existance) 
         queryLetter.classList.remove("grey")
         queryLetter.classList.remove("vert")
         queryLetter.classList.add("orange")
+        if (toucheClavier && !toucheClavier.classList.contains("vert")) {
+            toucheClavier.classList.remove("grey");
+            toucheClavier.classList.add("orange");
+        }
         return existance
     }
 
@@ -329,9 +394,9 @@ function checkLetter(curWordsLetter, targetWord, queryLetter, index, existance) 
 
 
 /**
- * Description placeholder
+ * gere le bouton d'aide
  *
- * @param {*} event 
+ * @param {Event} event 
  */
 function handlehelp(event){
     let elem = event.target
@@ -345,6 +410,12 @@ function handlehelp(event){
     }
     
 }
+
+function restart(){
+    window.location.reload();
+
+}
+
 
 document.getElementById("show").addEventListener("click",handlehelp)
 

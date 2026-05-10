@@ -20,6 +20,7 @@ body{
     border-radius: 12px;
     width: fit-content;
     justify-self: center;
+    user-select: none;
 }
 
 /* Chaque ligne (qui contient 5 tuiles) */
@@ -93,4 +94,53 @@ dialog {
 /* Grise le reste de la page derrière le pop-up */
 dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.7); 
+}
+#clavier{
+    margin: 40px;
+}
+#clavier div {
+    grid-area: top;
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    
+
+}
+.keys{
+    margin-top: 0% !important;
+    display: flex;
+    border: rgb(92, 92, 92) solid  1px;
+    background-color: aliceblue;
+    color: black;
+    min-width: 40px;
+    max-width: fit-content;
+    height: 60px;
+    border-radius: 8%;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    background-color: grey;
+    margin: 3px;
+}
+.keys:active{
+    background-color: black;
+    border: 1px solid black;
+}
+/* Couleurs pour le clavier virtuel */
+.keys.vert {
+    background-color: green;
+    border-color: green;
+}
+
+.keys.orange {
+    background-color: orange;
+    border-color: orange;
+}
+
+.keys.grey {
+    background-color: #222222; 
+    border-color: #222222;
 }
